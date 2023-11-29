@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+    <a href="{{ path('app_logout') }}" class="btn btn-primary">Wyloguj się!</a> <br/><br/><br/>
+    {# {{ dump(cars) }} #}
+      <table table class="table table-striped caption-top">
+        <thead class="table-dark">
+            <tr>
+              <th scope="col">L.p.</th>
+              <th scope="col">Stan Licznika</th>
+              <th scope="col">Ilość litrów</th>
+              <th scope="col">Kwota</th>
+              <th scope="col">Data tankowania</th>
+              <th scope="col">Średnie spalanie</th>
+              <th scope="col"></th>
+            </tr>
+            <tr>
+        </thead>
+         <tbody>
+            {% for ref in refuelings %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ ref.getRefuelingOdometer() }}</td>
+                <td>{{ ref.getRefuelingLiters() }}</td>
+                <td>{{ ref.getRefuelingPrice() }}</td>
+                <td>{{ ref.getRefuelingDate().format('Y-m-d') }}</td>
+                <td>{{ ref.getRefuelingAvgFuelConsumption() }}</td>
+                <td>
+                    {% if loop.last %}
+                        <form method="post" action="{{ path('refueling_delete', {'carId': carId, 'id': ref.getRefuelingId() }) }}" onsubmit="return confirm('Czy usunąć tankowanie?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ref.getRefuelingId()) }}">
+                        <button class="btn btn-primary">Usuń</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Średni koszt przejechania 100km [zł]</td>
+                <td>{{ refuelingAvgCost|round(2) }}</td>
+                <td>Średnie spalanie [l/100km]</td>
+                <td>{{ refuelingAvgFC|round(2) }}</td>
+                <td><a href="{{ path('refueling_add', {"id": carId }) }}" class="btn btn-primary">Dodaj tankowanie</a></td>            
+            </tr>
+        </tbody>
+      </table>
+    {% endblock %}

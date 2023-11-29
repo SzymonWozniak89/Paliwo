@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+    <a href="{{ path('app_logout') }}" class="btn btn-primary">Wyloguj się!</a> <br/><br/><br/>
+      <table table class="table table-striped caption-top">
+         <thead class="table-dark">
+            <tr>
+              <th scope="col">L.p.</th>
+              <th scope="col">Marka</th>
+              <th scope="col">Model</th>
+              <th scope="col">Paliwo</th>
+              <th scope="col">Stan początkowy licznika</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+            <tr>
+         </thead>
+         <tbody>
+            {% for car in cars %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ car.getDisplayName() }}</td>
+                <td>{{ car.getCarModel() }}</td>
+                <td>{{ car.getCarFuel() }}</td>
+                <td>{{ car.getCarOdometer() }}</td>
+                <td><a href="{{ path('app_refueling', {"id": car.getCarId() }) }}" class="btn btn-primary"> Lista tankowań </a></td>
+                <td><a href="{{ path('car_edit', {"id": car.getCarId() }) }}" class="btn btn-primary"> Edytuj </a></td>
+                <td>
+                    <form method="post" action="{{ path('car_delete', {'id': car.getCarId() }) }}" onsubmit="return confirm('Czy usunąć samochód?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ car.getCarId()) }}">
+                    <button class="btn btn-primary">Usuń</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    {% endblock %}

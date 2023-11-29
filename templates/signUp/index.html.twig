@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in{% endblock %}
+{% block body %}
+    <div id="intro" class="bg-image shadow-2-strong">
+        <div class="mask d-flex align-items-center h-100" style="background-color: rgba(111, 111, 111, 1);">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-5 col-md-10">
+                        <form class="bg-white  rounded-5 shadow-5-strong p-5" action="{{ path('signUp') }}"
+                              method="post">
+
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                                {{ form(register) }}
+                                {# {{ form_row(form.userLogin) }}
+                                {{ form_row(form.email) }}
+                                {{ form_row(form.password.first) }}
+                                {{ form_row(form.password.second) }}
+                                {{ form_row(form.userName) }}
+                                {{ form_row(form.userLastName) }}                          
+
+                                <button type="submit">Register!</button>        #}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

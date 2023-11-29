@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Email {% endblock %}
+
+{% block body %}
+
+    <header class="py-5">
+        <div class="container px-lg-5">
+            <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+                <div class="m-4 m-lg-5">
+                    <h2 class="display-7 fw-bold">Kalkulator Średniego Spalania</h2>
+                    <h2 class="display-7 fw-bold">Dziękujemy za rejestrację w serwisie!</h2>
+                    <a href="{{ absolute_url('http://localhost/login') }}" class="btn btn-primary">Zaloguj się</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% endblock %}
