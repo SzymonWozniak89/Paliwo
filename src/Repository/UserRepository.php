@@ -27,4 +27,14 @@ class UserRepository extends ServiceEntityRepository
         return $qb->getQuery()->getOneOrNullResult();
     }
 
+    public function addUser(User $user): void {
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
+       } 
+
+    public function saveUser(User $user): void {
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
+       } 
+
 }

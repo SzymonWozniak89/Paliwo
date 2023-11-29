@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,6 +18,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: "user_id", type: 'integer')]
     private int $id;
 
+    #[ORM\OneToMany(targetEntity: Car::class, mappedBy: 'user', fetch:'EAGER', cascade: ['persist'])]
+    private Collection $cars;
+
     #[ORM\Column(name: "user_login", type: 'string', length: 180, unique: true)]
     private ?string $login;
 
@@ -25,8 +30,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: "user_password", type: 'string')]
     private string $password;
 
+    #[ORM\Column(name: "user_name", type: 'string')]
+    private string $userName;
+
+    #[ORM\Column(name: "user_last_name", type: 'string')]
+    private string $userLastName;
+
     #[ORM\Column(name: 'user_roles', type: "json", length: 255, nullable: true)]
     private ?array $roles = null;
+
+    public function __construct() {
+        $this->cars = new ArrayCollection();
+    }
+
+    public function addCar(Car $car): void {
+        //$car->setUser($this);
+        //$this->cars->add($car);
+        $this->cars[] = $car;
+    }
+
+    public function removeCar(Car $car): void {
+        $this->cars->removeElement($car);
+    }
+
+    public function getCars(): Collection{
+        return $this->cars;
+    }
+
+    public function getCar($id) {
+        return $this->getCars()->filter(
+            function($car) use($id) {
+                return $car->getCarId()==$id;
+            }
+        )->first();
+    }
 
     public function getId(): ?int
     {
@@ -49,13 +86,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->email;
     }
-
     public function setEmail(string $email): self
     {
         $this->email = $email;
 
         return $this;
     }
+
+    public function getUserName(): ?string
+    {
+        return $this->userName;
+    }
+    public function setUserName(string $userName): self
+    {
+        $this->userName = $userName;
+
+        return $this;
+    }
+
+    public function getUserLastName(): ?string
+    {
+        return $this->userLastName;
+    }
+    public function setUserLastName(string $userLastName): self
+    {
+        $this->userLastName = $userLastName;
+
+        return $this;
+    }
+
+
 
     /**
      * The public representation of the user (e.g. a username, an email address, etc.)

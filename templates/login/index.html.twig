@@ -1,24 +1,52 @@
-{# templates/login/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{# ... #}
-
+{% block title %}Log in{% endblock %}
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <div id="intro" class="bg-image shadow-2-strong">
+        <div class="mask d-flex align-items-center h-100" style="background-color: rgba(111, 111, 111, 1);">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-5 col-md-10">
+                        <form class="bg-white  rounded-5 shadow-5-strong p-5" action="{{ path('app_login') }}"
+                              method="post">
+                            <!-- Login input -->
+                            <div class="form-outline mb-4">
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                <input type="text" id="form1Example1" class="form-control" name="_username"
+                                       value="{{ last_username }}"/>
+                                <label class="form-label" for="form1Example1">Username</label>
+                            </div>
 
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Login:</label>
-        <input type="text" id="username" name="_username" value="{{ last_username }}">
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <input type="password" id="form1Example2" class="form-control" name="_password"/>
+                                <label class="form-label" for="form1Example2">Password</label>
+                            </div>
 
-        <label for="password">Hasło:</label>
-        
-        <input type="password" id="password" name="_password">
+                            <!-- 2 column grid layout for inline styling -->
+                            <div class="row mb-4">
+                                {# <div class="col d-flex justify-content-center" style="font-size: 12px;">
+                                    hint: use interview/interview as credentials
+                                </div> #}
+                                {% if error %}
+                                    {% if error.messageKey == 'Invalid credentials.' %}
+                                        <p class="w3-error">&#x26D4;&#xFE0F; Invalid login or password.<br>Please
+                                            check your
+                                            details and try again.</p>
+                                    {% else %}
+                                        <p class="w3-error">
+                                            &#x26D4;&#xFE0F; {{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
 
-        {# If you want to control the URL the user is redirected to on success
-        <input type="hidden" name="_target_path" value="/account"> #}
-
-        <button type="submit">Zaloguj</button>
-    </form>
+                            <!-- Submit button -->
+                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>                      
+                            <a href="{{ path('signUp') }}" style="float: right;" class="btn btn-primary" >Sign up</a>         
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
