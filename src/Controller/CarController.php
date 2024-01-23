@@ -50,7 +50,7 @@ class CarController extends AbstractController
     #[Route('/car/add', name: 'car_add', defaults: ['_format' => 'html'], methods: ['POST','GET'])]
     public function addCar(Request $request, CarService $carService): Response
     {    
-        $car=new Car();
+        $car=new Car(); 
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
 

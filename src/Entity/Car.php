@@ -85,7 +85,7 @@ class Car implements PrintableInterface
 
     public function getUserId(): ?int
     {
-        return $this->user_id;
+        return $this->user;
     }
 
     public function setUserId(int $user_id): static
