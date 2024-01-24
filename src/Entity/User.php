@@ -15,7 +15,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "id", type: 'integer')]
+    #[ORM\Column(name: "user_id", type: 'integer')]
     private int $id;
 
     #[ORM\OneToMany(targetEntity: Car::class, mappedBy: 'user', fetch:'EAGER', cascade: ['persist'])]
@@ -24,19 +24,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: "user_login", type: 'string', length: 180, unique: true)]
     private ?string $login;
 
-    #[ORM\Column(name: "email", type: 'string', length: 180, unique: true)]
+    #[ORM\Column(name: "user_email", type: 'string', length: 180, unique: true)]
     private ?string $email;
 
-    #[ORM\Column(name: "password", type: 'string')]
+    #[ORM\Column(name: "user_password", type: 'string')]
     private string $password;
 
-    #[ORM\Column(name: "userName", type: 'string')]
+    #[ORM\Column(name: "user_name", type: 'string')]
     private string $userName;
 
     #[ORM\Column(name: "user_last_name", type: 'string')]
     private string $userLastName;
 
-    #[ORM\Column(name: 'roles', type: "json", length: 255, nullable: true)]
+    #[ORM\Column(name: 'user_roles', type: "json", length: 255, nullable: true)]
     private ?array $roles = null;
 
     public function __construct() {
@@ -44,8 +44,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function addCar(Car $car): void {
-        //$car->setUser($this);
-        //$this->cars->add($car);
         $this->cars[] = $car;
     }
 

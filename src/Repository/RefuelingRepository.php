@@ -21,21 +21,6 @@ class RefuelingRepository extends ServiceEntityRepository
         parent::__construct($registry, Refueling::class);
     }
 
-//    /**
-//     * @return Refueling[] Returns an array of Refueling objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
    public function findRefuelingByCarId($car_id): array
    {
        return $this->createQueryBuilder('r')
@@ -56,7 +41,6 @@ class RefuelingRepository extends ServiceEntityRepository
            WHERE r.car_id = :car_id'
        )->setParameter('car_id', $car_id);
 
-       // returns an array of Product objects
        return $query->getSingleScalarResult();
    }
 
@@ -70,7 +54,6 @@ class RefuelingRepository extends ServiceEntityRepository
            WHERE r.car_id = :car_id'
        )->setParameter('car_id', $car_id);
 
-       // returns an array of Product objects
        return $query->getSingleScalarResult();
    }
 
@@ -87,7 +70,6 @@ class RefuelingRepository extends ServiceEntityRepository
        ->setMaxResults(1)
        ->setParameter('car_id', $car_id);
 
-       // returns an array of Product objects
        return $query->getOneOrNullResult();
    }
 

@@ -19,7 +19,7 @@ class Car implements PrintableInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column] 
     private ?int $car_id = null;
 
     #[ORM\OneToMany(targetEntity: Refueling::class, mappedBy: 'car', cascade: ['persist'])]

@@ -34,40 +34,10 @@ class CarRepository extends ServiceEntityRepository
        ;
    }
 
-//    public function findCarByUserId(int $id): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.id = :id')
-//            ->setParameter('id', $id)
-//            //->orderBy('c.id', 'ASC')
-//            //->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findCarByUserId(int $userId): array
-//     {
-//         $conn = $this->getEntityManager()->getConnection();
-
-//         $sql = '
-//             SELECT * 
-//             FROM car 
-//             where id = :userId
-//             ';
-
-//         $resultSet = $conn->executeQuery($sql, ['userId' => $userId]);
-
-//         // returns an array of arrays (i.e. a raw data set)
-//         return $resultSet->fetchAllAssociative();
-//     }
-
-
-
    public function findCarByUserId($id): array
    {
        return $this->createQueryBuilder('c')
-           ->andWhere('c.id = :id')
+           ->andWhere('c.user_id = :id')
            ->setParameter('id', $id)
            ->getQuery()
            ->getResult()
