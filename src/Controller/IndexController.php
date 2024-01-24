@@ -19,8 +19,7 @@ class IndexController extends AbstractController
     #[IsGranted('IS_AUTHENTICATED')]
     public function index(): Response
     {
-            return $this->render('index/index.html.twig', [   
-        ]);
+        return $this->redirectToRoute('app_user');
     }
 
     #[Route('/email')]
