@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
-
-    {% block body %}
-    <a href="{{ path('app_logout') }}" class="btn btn-primary">Wyloguj się!</a> <br/><br/><br/>
-      <table table class="table table-striped caption-top">
-         <thead class="table-dark">
+{% block body %}
+  <div class="container-fluid p-5">
+    <div class="row px-xl-5">
+      <div class="table-responsive mb-5">
+        <table table class="table table-striped caption-top">
+          <thead class="table-dark">
             <tr>
               <th scope="col">L.p.</th>
               <th scope="col">Marka</th>
@@ -14,9 +15,8 @@
               <th scope="col"></th>
               <th scope="col"></th>
             </tr>
-            <tr>
-         </thead>
-         <tbody>
+          </thead>
+          <tbody>
             {% for car in cars %}
             <tr>
                 <td>{{ loop.index }}</td>
@@ -34,6 +34,9 @@
                 </td>
             </tr>
             {% endfor %}
-        </tbody>
-      </table>
-    {% endblock %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -37,16 +37,33 @@
         {% endblock %}
     </head>
     <body>
-            {% for type, messages in app.session.flashbag.all() %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
-                        <strong>{{ message|raw }}</strong>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
+        <header class="py-1 bg bg-white mt-5 mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="text-center">
+                    <h1 class="display-4 fw-bolder">Kalkulator średniego spalania</h1>
+                </div>
+            </div>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="d-flex justify-content-around mt-4">
+                <a href="{{ path('app_user') }}" class="btn btn-dark">Strona główna</a>
+                <a href="{{ path('app_logout') }}" class="btn btn-dark">Wyloguj się!</a>
+            </div>
+            {% endif %}
+        </header>
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+                    <strong>{{ message|raw }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             {% endfor %}
+        {% endfor %}
 
         {% block body %}{% endblock %}
-        {{ render(controller('App\\Controller\\APiWeatherController::getAPiWeatherData')) }}
+            <!-- Footer-->
+        <footer class="py-2 bg bg-white">
+            {{ render(controller('App\\Controller\\APiWeatherController::getAPiWeatherData')) }}    
+            <div class="container"><p class="m-1 text-center text-secondary">Copyright &copy; Szymon Woźniak 2024</p></div>
+        </footer>
     </body>
 </html>
