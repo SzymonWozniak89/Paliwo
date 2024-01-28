@@ -35,6 +35,7 @@ class RefuelingService{
         $testLastRefueling = $this->refuelingRepository->findLastOdometer($id);
         if ($testLastRefueling==null) {
             $lastRefuelingOdometer = $this->carRepository->findCarOdometer($id)->getCarOdometer();
+            $lastRefuelingDate = $refuelingDate;
         } else {
             $lastRefuelingOdometer = $testLastRefueling->getRefuelingOdometer();
             $lastRefuelingDate = $testLastRefueling->getRefuelingDate();
